@@ -18,10 +18,10 @@ Choose any maze you like. If two default maze file are downloaded, you are able 
 Open maze file from computer. 
 You can create your own .txt file and load the maze into the program.
 Below are representation in case of you create your own maze.
-    '-' represents empty space
-    'W' represents walls.
-    'S' represents starting point.
-    'G' represents goal point. 
+'-' represents empty space.<br>
+'W' represents walls.<br>
+'S' represents starting point.<br>
+'G' represents goal point. <br>
 
 * Button "Start":
 Start program based on chosen algorithm and maze. 
