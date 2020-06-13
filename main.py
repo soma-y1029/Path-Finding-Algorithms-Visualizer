@@ -23,15 +23,15 @@ DIRECTORY = '/'
 class Maze:
     def __init__(self, root):
         self.maze_content = self.get_maze_content(NO_WALL) # load default maze
-        self.root = root # store root into local
+        self.root = root # store ro /*-+9ot into local
 
         # initialization
         self.starting_point = (0, 0)
         self.goal_point = (0, 0)
         self.width, self.height = 0, 0
-        self.canvas = None # maze canvas (will be created at maze_config())
-        self.size = 50 # size of rectangle
-        self.outline_color = '#999999' # light gray
+        self.canvas = None  # maze canvas (will be created at maze_config())
+        self.size = 50  # size of rectangle
+        self.outline_color = '#999999'  # light gray
         self. time_interval = 0
 
         self.maze_frame = tk.Frame(root, padx=5, pady=5, bg='black') # frame to hold maze canvas
@@ -91,7 +91,7 @@ class Maze:
         return maze_content
 
     def open_new_maze(self):
-        # set maze contet
+        # set maze contnet
         self.maze_content = self.load_maze_from_computer()
         self.reset_maze()
 
@@ -148,7 +148,7 @@ class Maze:
 class Menu:
     def __init__(self, root, maze):
         self.menu_frame = tk.Frame(root, padx=10, pady=10, bg='gray')
-        self.time_slider_frame = tk.LabelFrame(root, text='Time Interval', padx=5, pady=10, bg='gray', fg='white')
+        self.time_slider_frame = tk.Frame(root, padx=5, pady=10, bg='gray')
         self.maze = maze
         self.algs = ['Choose Algorithm', 'DFS', 'BFS', 'A*']
         self.files = ['Choose Maze', 'no_wall', 'maze']
@@ -165,7 +165,7 @@ class Menu:
         self.start_button = tk.Button(self.menu_frame, text='Start', command=self.start)
         # self.pause_button = tk.Button(self.menu_frame, text='Pause', command=self.pause)
         self.reset_button = tk.Button(self.menu_frame, text='Reset', command=self.reset)
-        self.time_slider = tk.Scale(self.time_slider_frame, from_=0, to=100,
+        self.time_slider = tk.Scale(self.time_slider_frame, from_=0, to=1000, length=200, label='Time Interval',
                                     orient=tk.HORIZONTAL, command=maze.change_time_interval)
 
     def place_buttons(self):
