@@ -17,7 +17,7 @@ class Node:
 
 NO_WALL = 'no_wall.txt'
 DEF_MAZE = 'maze.txt'
-DIRECTORY = '/Users/somayoshida/Program/Python Projects/GUI Tutorial'
+DIRECTORY = '/'
 
 
 class Maze:
@@ -83,8 +83,11 @@ class Maze:
 
     def get_maze_content(self, maze_file):
         # open given maze file and extract maze info
-        with open(maze_file, 'r') as maze:
-            maze_content = maze.readlines()
+        try:
+            with open(maze_file, 'r') as maze:
+                maze_content = maze.readlines()
+        except IOError:
+            print(f'file does not exists.')
         return maze_content
 
     def open_new_maze(self):
@@ -195,7 +198,7 @@ class Menu:
         elif selected_maze == 'Choose Maze':
             pass
 
-        elif selected_maze == 'maze':  # A, B is not defined
+        elif selected_maze == 'maze':
             self.maze.set_maze(DEF_MAZE)
 
         self.maze.initialize_maze()
