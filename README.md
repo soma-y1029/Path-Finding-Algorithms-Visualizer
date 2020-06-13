@@ -9,9 +9,9 @@ As default, there are two maze file. Please download two maze text file into sam
 
 ## Buttons
 * Option Menu "Choose Algorithm":
-Choose any algortithm you like. Current options are DFS, BFS, A*. (more are coming!)
+Choose any algorithm you like. Current options are DFS, BFS, A*. (more are coming!)
 
-* Option Menu "Choose Meze": 
+* Option Menu "Choose Maze": 
 Choose any maze you like. If two default maze file are downloaded, you are able to choose from two file, no_wall or maze. 
 
 * Button "open maze file"
@@ -21,10 +21,10 @@ Below are representation in case of you create your own maze.
     '-' represents empty space
     'W' represents walls.
     'S' represents starting point.
-    'G' represests goal point. 
+    'G' represents goal point. 
 
 * Button "Start":
-Start program based on choosen algorithm and maze. 
+Start program based on chosen algorithm and maze. 
 
 * Button "Reset":
 Reset maze board.
