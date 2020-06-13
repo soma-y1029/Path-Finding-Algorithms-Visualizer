@@ -30,7 +30,7 @@ Start program based on chosen algorithm and maze.
 Reset maze board.
 
 * Slider "Time Interval":
-Time interval from 0 to 100 ms.
+Time interval from 0 to 1000 ms (1 sec).
 You can change the speed while program is running.
 
 
