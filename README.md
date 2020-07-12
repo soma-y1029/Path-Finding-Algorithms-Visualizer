@@ -41,11 +41,16 @@ For all algorithms, order of neighbor searching is clockwise (top, right, bottom
 Stack is used for DFS data structure.
 Keep looking for same direction while the direction is available. 
 If there is no path for current state, back up and look for different path using backtracking.
+![](https://i.imgur.com/7tjfBEZ.gif)
+
 
 ### BFS
 Queue is used for BFS data structure.
 Look for the neighbors in circular motion until algorithm find goal state. 
+![](https://i.imgur.com/4yVrX0f.gif)
+
 
 ### A*
 Priority queue is used for A* data structure.
 This PQ is based on a sum of greedy function that represents cost from start to current and heuristic fuction that represents cost from current and goal state.
+![](https://i.imgur.com/8zpCMAa.gif)
