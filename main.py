@@ -149,6 +149,8 @@ class Menu:
     def __init__(self, root, maze):
         self.menu_frame = tk.Frame(root, padx=10, pady=10, bg='gray')
         self.time_slider_frame = tk.Frame(root, padx=5, pady=10, bg='gray')
+        self.solution_frame = tk.Frame(root, padx=5, pady=10, bg='gray')
+
         self.maze = maze
         self.algs = ['Choose Algorithm', 'DFS', 'BFS', 'A*']
         self.files = ['Choose Maze', 'no_wall', 'maze']
@@ -175,10 +177,12 @@ class Menu:
         self.menu_frame.pack()
         self.alg_menu.grid(row=0, column=0, padx=10)
         self.file_menu.grid(row=0, column=1, padx=10)
-        self.open_file.grid(row=2, column=1, padx=10, pady = 10)
+        self.open_file.grid(row=2, column=1, padx=10, pady=10)
         self.start_button.grid(row=0, column=4, padx=30)
         # self.pause_button.grid(row=0, column=5, padx=100)
         self.reset_button.grid(row=0, column=5, padx=10)
+
+        self.solution_frame.pack()
 
     def load_pre_set_maze(self, maze_file):
         if maze_file == self.files[1]:
@@ -216,6 +220,8 @@ class Menu:
             print(f'end of A*{soln}')
 
         self.maze.path_found(soln)
+        # for node in soln:
+        #     tk.Label(self.solution_frame, text=node).pack()
 
     def reset(self):
         self.maze.reset_maze()
