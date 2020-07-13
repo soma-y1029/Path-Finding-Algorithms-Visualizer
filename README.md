@@ -1,6 +1,8 @@
 # Path-Finding-Algorithms-Visualizer
-Path Finding Algorithms Visualizer with TkInter
+Path Finding Algorithms Visualizer with TkInter<br>
 Currently, DFS, BFS, A* are supported.
+
+[Java version is also available.](https://github.com/soma-y1029/Path-Finding-Algorithms-Visualizer-in-Java)
 
 
 ## Preparation
@@ -60,3 +62,6 @@ This PQ is based on a sum of greedy function that represents cost from start to 
 
 
 ![](https://i.imgur.com/8zpCMAa.gif)
+
+
+
