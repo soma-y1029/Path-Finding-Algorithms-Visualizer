@@ -12,7 +12,7 @@ As default, there are two maze file. Please download two maze text file into sam
 
 ## Buttons
 * Option Menu "Choose Algorithm":
-Choose any algorithm you like. Current options are DFS, BFS, A*. (more are coming!)
+Choose any algorithm you like. Current options are DFS, BFS, A*.
 
 * Option Menu "Choose Maze": 
 Choose any maze you like. If two default maze file are downloaded, you are able to choose from two file, no_wall or maze. 
@@ -40,7 +40,7 @@ You can change the speed while program is running.
 For all algorithms, order of neighbor searching is clockwise (top, right, bottom, left).
 
 ### DFS
-Stack is used for DFS data structure.
+Stack is used for DFS algorithm.
 Keep looking for same direction while the direction is available. 
 If there is no path for current state, back up and look for different path using backtracking.
 
@@ -49,7 +49,7 @@ If there is no path for current state, back up and look for different path using
 
 
 ### BFS
-Queue is used for BFS data structure.
+Queue is used for BFS algorithm.
 Look for the neighbors in circular motion until algorithm find goal state. 
 
 
@@ -57,7 +57,7 @@ Look for the neighbors in circular motion until algorithm find goal state.
 
 
 ### A*
-Priority queue is used for A* data structure.
+Priority queue is used for A* algorithm.
 This PQ is based on a sum of greedy function that represents cost from start to current and heuristic fuction that represents cost from current and goal state.
 
 
