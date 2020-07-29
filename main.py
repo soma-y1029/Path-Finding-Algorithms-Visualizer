@@ -1,5 +1,6 @@
+import os
 import tkinter as tk
-from tkinter import filedialog
+from tkinter import filedialog, messagebox
 
 
 class Node:
@@ -17,7 +18,7 @@ class Node:
 
 NO_WALL = 'no_wall.txt'
 DEF_MAZE = 'maze.txt'
-DIRECTORY = '/'
+DIRECTORY = os.getcwd()
 
 
 class Maze:
@@ -165,7 +166,6 @@ class Menu:
         self.file_menu = tk.OptionMenu(self.menu_frame, self.file_option, *self.files, command=self.load_pre_set_maze)
         self.open_file = tk.Button(self.menu_frame, text='open maze file', command=self.maze.open_new_maze)
         self.start_button = tk.Button(self.menu_frame, text='Start', command=self.start)
-        # self.pause_button = tk.Button(self.menu_frame, text='Pause', command=self.pause)
         self.reset_button = tk.Button(self.menu_frame, text='Reset', command=self.reset)
         self.time_slider = tk.Scale(self.time_slider_frame, from_=0, to=1000, length=200, label='Time Interval',
                                     orient=tk.HORIZONTAL, command=maze.change_time_interval)
@@ -218,6 +218,8 @@ class Menu:
             alg=Algs('astar', self.maze)
             soln = alg.run_alg()
             print(f'end of A*{soln}')
+        else:
+            self.popup(selected_alg)
 
         self.maze.path_found(soln)
         # for node in soln:
@@ -226,6 +228,8 @@ class Menu:
     def reset(self):
         self.maze.reset_maze()
 
+    def popup(self, selected_alg):
+        messagebox.showerror("Menu Error", "Algorithm is not selected.\nChoose Algorithm from menu.")
 
 class Algs:
     def __init__(self, alg, maze):
