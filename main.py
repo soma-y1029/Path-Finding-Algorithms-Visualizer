@@ -29,7 +29,7 @@ class Maze:
 
         # initialization
         self.starting_point = (0, 0)
-        self.goal_point = (0, 0)
+        self.goal_point = [] # goal_point is list of tuple
         self.width, self.height = 0, 0
         self.canvas = None  # maze canvas (will be created at maze_config())
         self.size = 50  # size of rectangle
@@ -54,6 +54,7 @@ class Maze:
         self.reset_maze()
 
     def initialize_maze(self):
+        self.goal_point = []
         for y, line in enumerate(self.maze_content):
             for x, letter in enumerate(line):
                 color = 'white' # base color is white (empty space)
@@ -63,15 +64,18 @@ class Maze:
                     self.starting_point = (x, y)  # store starting point
                 elif letter == 'G':
                     color = 'Green'  # goal color
-                    self.goal_point = (x, y)
+                    self.goal_point.append(((x,y), 0))
                 elif letter.isdigit():
                     color = 'Green'
-                    goal_label = tk.Label(self.canvas, text=letter)
-                    goal_label.place(x=(x+0.5)*self.size, y=(y+0.5)*self.size)
-                    self.goal_point = (x, y)
+                    goal_label = tk.Label(self.canvas, text=letter, bg='Green', fg='White')
+                    goal_label.place(x=(x+.25)*self.size, y=(y+.25)*self.size)
+                    self.goal_point.append(((x,y), int(letter)))
                 # create rectangle for each element
                 self.canvas.create_rectangle(x*self.size, y*self.size, (x+1)*self.size, (y+1)*self.size,
                                              fill=color, outline=self.outline_color)
+
+        self.goal_point = sorted(self.goal_point, key=lambda x: x[1])
+        self.goal_point = [point for point, num in self.goal_point]
 
     def reset_maze(self):
         # destroy existing maze canvas
@@ -111,8 +115,8 @@ class Maze:
     def change_time_interval(self, time):
         self.time_interval = time
 
-    def is_goal(self, point):
-        return point == self.goal_point
+    def is_goal(self, point, goal_index):
+        return point == self.goal_point[goal_index]
 
     def is_wall(self, point):
         x, y = point
@@ -137,20 +141,22 @@ class Maze:
         return neighbor
 
     def path_found(self, solution):
-        for index, point in enumerate(solution):
-            # do not write arrow on goal point
-            if self.is_goal(point):
-                return
-            x1, y1 = point
-            x2, y2 = solution[index+1]
-            self.canvas.create_line((x1 + 0.5) * self.size,
-                                    (y1 + 0.5) * self.size,
-                                    (x2 + 0.5) * self.size,
-                                    (y2 + 0.5) * self.size,
-                                    arrow=tk.LAST,
-                                    width=3,
-                                    fill="yellow")
-
+        for local_goal_index, local_path in enumerate(solution):
+            for index, point in enumerate(local_path):
+                # do not write arrow on goal point
+                if point == local_path[-1]:#self.is_goal(point, local_goal_index):
+                    break
+                x1, y1 = point
+                x2, y2 = local_path[index+1]
+                self.canvas.create_line((x1 + 0.5) * self.size,
+                                        (y1 + 0.5) * self.size,
+                                        (x2 + 0.5) * self.size,
+                                        (y2 + 0.5) * self.size,
+                                        arrow=tk.LAST,
+                                        width=3,
+                                        fill="yellow")
+            if local_goal_index != len(solution) - 1:  # add arrow to turning point if this is not final goal
+                solution[local_goal_index + 1].insert(0, local_path[-1])
 
 class Menu:
     def __init__(self, root, maze):
@@ -244,14 +250,21 @@ class Algs:
     def __init__(self, alg, maze):
         self.maze = maze
         self.alg = alg
+        self.local_starting_point = self.maze.starting_point
+        self.local_goal_index = 0
 
     def run_alg(self):
+        goal_path = []
         if self.alg == 'dfs':
             return self.dfs()
         elif self.alg == 'bfs':
             return self.bfs()
         elif self.alg == 'astar':
-            return self.astar()
+            while self.local_goal_index < len(self.maze.goal_point):
+                goal_path.append(self.astar())
+                self.local_starting_point = self.maze.goal_point[self.local_goal_index]
+                self.local_goal_index += 1
+        return goal_path
 
     def change_color(self, point):
         if point != self.maze.starting_point:
@@ -297,11 +310,11 @@ class Algs:
 
     def astar(self):
         visited = set()
-        root = Node(parent=None, position=self.maze.starting_point, g=0, h=self.get_heuristic(self.maze.starting_point))
+        root = Node(parent=None, position=self.local_starting_point, g=0, h=self.get_heuristic(self.local_starting_point))
         priority_queue = [root]
         while priority_queue:
             current = priority_queue.pop(0)
-            if self.maze.is_goal(current.position):
+            if self.maze.is_goal(current.position, self.local_goal_index):
                 return self.solution_path(root, current)
 
             priority_queue = self.check_visited(current, visited, priority_queue)
@@ -309,7 +322,7 @@ class Algs:
 
     def get_heuristic(self, current_point):
         current_x, current_y = current_point
-        goal_x, goal_y = self.maze.goal_point
+        goal_x, goal_y = self.maze.goal_point[self.local_goal_index]
 
         return abs(current_x - goal_x) + abs(current_y - goal_y)
 
