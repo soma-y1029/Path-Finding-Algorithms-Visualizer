@@ -8,14 +8,14 @@ Currently, DFS, BFS, A* are supported.
 ## Preparation
 main.py contains all classes needed to run this program.
 
-As default, there are two maze file. Please download two maze text file into same directory. 
+As default, there are three maze file. Please download the maze text files into same directory. 
 
 ## Buttons
 * Option Menu "Choose Algorithm":
 Choose any algorithm you like. Current options are DFS, BFS, A*.
 
 * Option Menu "Choose Maze": 
-Choose any maze you like. If two default maze file are downloaded, you are able to choose from two file, no_wall or maze. 
+Choose any maze you like. If default maze files are downloaded, you are able to choose from file, no_wall, maze, or multi_point.
 
 * Button "open maze file"
 Open maze file from computer. 
@@ -25,6 +25,7 @@ Below are representation in case of you create your own maze.
 'W' represents walls.<br>
 'S' represents starting point.<br>
 'G' represents goal point. <br>
+numbers can be used as goal point instead. In that case, use only numbers. The algorithm retrive the numbered-goal point in order of number.<br>
 
 * Button "Start":
 Start program based on chosen algorithm and maze. 
