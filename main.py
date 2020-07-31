@@ -74,7 +74,9 @@ class Maze:
                 self.canvas.create_rectangle(x*self.size, y*self.size, (x+1)*self.size, (y+1)*self.size,
                                              fill=color, outline=self.outline_color)
 
+        # sort in order of number in maze
         self.goal_point = sorted(self.goal_point, key=lambda x: x[1])
+        # remove number and store only coordinate tup
         self.goal_point = [point for point, num in self.goal_point]
 
     def reset_maze(self):
@@ -109,7 +111,7 @@ class Maze:
     def change_color(self, point, color):
         x, y = point
         self.canvas.create_rectangle(x*self.size, y*self.size, (x+1)*self.size, (y+1)*self.size,
-                                     fill=color, outline=self.outline_color)
+                                     fill='#'+color, outline=self.outline_color)
         self.canvas.after(self.time_interval, self.canvas.update())
 
     def change_time_interval(self, time):
@@ -144,7 +146,7 @@ class Maze:
         for local_goal_index, local_path in enumerate(solution):
             for index, point in enumerate(local_path):
                 # do not write arrow on goal point
-                if point == local_path[-1]:#self.is_goal(point, local_goal_index):
+                if point == local_path[-1]:
                     break
                 x1, y1 = point
                 x2, y2 = local_path[index+1]
@@ -246,29 +248,33 @@ class Menu:
     def popup(self, selected_alg):
         messagebox.showerror("Menu Error", "Algorithm is not selected.\nChoose Algorithm from menu.")
 
+
 class Algs:
     def __init__(self, alg, maze):
         self.maze = maze
         self.alg = alg
         self.local_starting_point = self.maze.starting_point
         self.local_goal_index = 0
+        self.visited_color = 65535 # color code of cyan '#00FFFF
 
     def run_alg(self):
         goal_path = []
-        if self.alg == 'dfs':
-            return self.dfs()
-        elif self.alg == 'bfs':
-            return self.bfs()
-        elif self.alg == 'astar':
-            while self.local_goal_index < len(self.maze.goal_point):
+        while self.local_goal_index < len(self.maze.goal_point):
+            if self.alg == 'dfs':
+                goal_path.append(self.dfs())
+            elif self.alg == 'bfs':
+                goal_path.append(self.bfs())
+            elif self.alg == 'astar':
                 goal_path.append(self.astar())
-                self.local_starting_point = self.maze.goal_point[self.local_goal_index]
-                self.local_goal_index += 1
+            self.local_starting_point = self.maze.goal_point[self.local_goal_index]
+            self.local_goal_index += 1
+            self.visited_color -= 16
+
         return goal_path
 
     def change_color(self, point):
         if point != self.maze.starting_point:
-            self.maze.change_color(point, 'cyan')
+            self.maze.change_color(point, '00'+hex(self.visited_color)[2:])
 
     def solution_path(self, starting_node, current_node):
         soln = []
@@ -288,22 +294,22 @@ class Algs:
 
     def dfs(self):
         visited = set()
-        root = Node(parent=None, position=self.maze.starting_point)
+        root = Node(parent=None, position=self.local_starting_pointstarting_point)
         fringe_stack = [root]
         while fringe_stack:
             current = fringe_stack.pop()
-            if self.maze.is_goal(current.position):
+            if self.maze.is_goal(current.position, self.local_goal_index):
                 return self.solution_path(root, current)
 
             fringe_stack = self.check_visited(current, visited, fringe_stack)
 
     def bfs(self):
         visited = set()
-        root = Node(parent=None, position=self.maze.starting_point)
+        root = Node(parent=None, position=self.local_starting_pointstarting_point)
         fringe_queue = [root]
         while fringe_queue:
             current = fringe_queue.pop(0)
-            if self.maze.is_goal(current.position):
+            if self.maze.is_goal(current.position, self.local_goal_index):
                 return self.solution_path(root, current)
 
             fringe_queue = self.check_visited(current, visited, fringe_queue)
