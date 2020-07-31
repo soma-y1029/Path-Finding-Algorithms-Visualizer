@@ -294,7 +294,7 @@ class Algs:
 
     def dfs(self):
         visited = set()
-        root = Node(parent=None, position=self.local_starting_pointstarting_point)
+        root = Node(parent=None, position=self.local_starting_point)
         fringe_stack = [root]
         while fringe_stack:
             current = fringe_stack.pop()
@@ -305,7 +305,7 @@ class Algs:
 
     def bfs(self):
         visited = set()
-        root = Node(parent=None, position=self.local_starting_pointstarting_point)
+        root = Node(parent=None, position=self.local_starting_point)
         fringe_queue = [root]
         while fringe_queue:
             current = fringe_queue.pop(0)
