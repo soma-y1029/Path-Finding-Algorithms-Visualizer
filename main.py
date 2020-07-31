@@ -18,6 +18,7 @@ class Node:
 
 NO_WALL = 'no_wall.txt'
 DEF_MAZE = 'maze.txt'
+MULTI_POINT = 'multi_point.txt'
 DIRECTORY = os.getcwd()
 
 
@@ -62,6 +63,11 @@ class Maze:
                     self.starting_point = (x, y)  # store starting point
                 elif letter == 'G':
                     color = 'Green'  # goal color
+                    self.goal_point = (x, y)
+                elif letter.isdigit():
+                    color = 'Green'
+                    goal_label = tk.Label(self.canvas, text=letter)
+                    goal_label.place(x=(x+0.5)*self.size, y=(y+0.5)*self.size)
                     self.goal_point = (x, y)
                 # create rectangle for each element
                 self.canvas.create_rectangle(x*self.size, y*self.size, (x+1)*self.size, (y+1)*self.size,
@@ -154,7 +160,7 @@ class Menu:
 
         self.maze = maze
         self.algs = ['Choose Algorithm', 'DFS', 'BFS', 'A*']
-        self.files = ['Choose Maze', 'no_wall', 'maze']
+        self.files = ['Choose Maze', 'no_wall', 'maze', 'multi_point']
 
         self.alg_option = tk.StringVar()
         self.alg_option.set(self.algs[0])
@@ -189,6 +195,8 @@ class Menu:
             maze_file = NO_WALL
         elif maze_file == self.files[2]:
             maze_file = DEF_MAZE
+        elif maze_file == self.files[3]:
+            maze_file = MULTI_POINT
         else:
             return
         self.maze.set_maze(maze_file)
@@ -199,11 +207,12 @@ class Menu:
         soln = []
         if selected_maze == 'no_wall':
             self.maze.set_maze(NO_WALL)
-        elif selected_maze == 'Choose Maze':
-            pass
-
         elif selected_maze == 'maze':
             self.maze.set_maze(DEF_MAZE)
+        elif selected_maze == 'multi_point':
+            self.maze.set_maze(MULTI_POINT)
+        elif selected_maze == 'Choose Maze':
+            pass
 
         self.maze.initialize_maze()
         if selected_alg == 'DFS':
