@@ -64,6 +64,8 @@ This PQ is based on a sum of greedy function that represents cost from start to 
 
 ![](https://i.imgur.com/Vyn923Y.gif)
 
+Multipoint destination with A*.
 
+![](https://i.imgur.com/JcZ0gl7.gif)
 
 
