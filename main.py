@@ -268,7 +268,7 @@ class Algs:
                 goal_path.append(self.astar())
             self.local_starting_point = self.maze.goal_point[self.local_goal_index]
             self.local_goal_index += 1
-            self.visited_color -= 16
+            self.visited_color -= 32
 
         return goal_path
 
