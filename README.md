@@ -18,9 +18,16 @@ DFS: 1.907s<br>
 BFS: 4.070s<br>
 A* : 3.937s<br>
 <br>
-Observed that informed path finding algorithm reach to the destination faster than uninformed search. <br>
+In Multipoint:<br>
+DFS: 5.061s<br>
+BFS: 6.602s<br>
+A* : 1.101s<br>
+<br>
+
+Observed that informed path finding algorithm reach to the destination 2.5 times faster than uninformed search. <br>
 Heuristic function have very large commitment to decrease time. <br>
 <br>
+
 ## Preparation
 main.py contains all classes needed to run this program.
 
