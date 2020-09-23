@@ -1,4 +1,4 @@
-import os
+import os, time
 import tkinter as tk
 from tkinter import filedialog, messagebox
 
@@ -259,6 +259,7 @@ class Algs:
 
     def run_alg(self):
         goal_path = []
+        start_time = time.time()
         while self.local_goal_index < len(self.maze.goal_point):
             if self.alg == 'dfs':
                 goal_path.append(self.dfs())
@@ -269,7 +270,7 @@ class Algs:
             self.local_starting_point = self.maze.goal_point[self.local_goal_index]
             self.local_goal_index += 1
             self.visited_color -= 32
-
+        print(f'{self.alg}, Time Taken: {time.time()-start_time:.3f}')
         return goal_path
 
     def change_color(self, point):
