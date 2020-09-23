@@ -18,7 +18,7 @@ DFS: 1.907s<br>
 BFS: 4.070s<br>
 A* : 3.937s<br>
 <br>
-Observed that informed path finding algorithm fish faster than uninformed search. <br>
+Observed that informed path finding algorithm reach to the destination faster than uninformed search. <br>
 Heuristic function have very large commitment to decrease time. <br>
 <br>
 ## Preparation
