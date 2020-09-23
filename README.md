@@ -4,6 +4,22 @@ Currently, DFS, BFS, A* are supported.
 
 [Java version is also available.](https://github.com/soma-y1029/Path-Finding-Algorithms-Visualizer-in-Java)
 
+### Performance Observation
+Each algorithms' details are below.
+
+Time for each algorithms are: (including animation time)
+In No-Wall maze (two points only), 
+DFS: 1.996s
+BFS: 2.137s
+A* : 0.163s
+
+In Maze:
+DFS: 1.907s
+BFS: 4.070s
+A* : 3.937s
+
+Observed that informed path finding algorithm fish faster than uninformed search. 
+Heuristic function have very large commitment to decrease time. 
 
 ## Preparation
 main.py contains all classes needed to run this program.
